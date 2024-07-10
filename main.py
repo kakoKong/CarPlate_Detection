@@ -5,38 +5,49 @@ from ocr import OCR
 
 if __name__ == "__main__": 
 	
-	findPlate = PlateFinder(minPlateArea=4100, 
-								maxPlateArea=15000) 
-	model = OCR(modelFile="<Path to OCR Model>", 
-							labelFile="<Path to File>") 
+	findPlate = PlateFinder(minPlateArea=2000, 
+								maxPlateArea=7000) 
+	# model = OCR(modelFile="<Path to OCR Model>", 
+		#          labelFile="<Path to File>") 
+	img = cv2.imread('frame6.png')
+	cv2.imshow('original_image', img)
+	possible_plates = findPlate.find_possible_plates(img)
 
-	cap = cv2.VideoCapture('video.mp4') 
+	print('possible plate', possible_plates)
+
+	# cap = cv2.VideoCapture('video.mp4') 
 	
-	while (cap.isOpened()): 
-		ret, img = cap.read() 
+	# while (cap.isOpened()): 
+	# 	ret, img = cap.read() 
 		
-		if ret == True: 
-			cv2.imshow('original video', img) 
+	# 	if ret == True: 
+	# 		cv2.imshow('original video', img) 
 			
-			if cv2.waitKey(25) & 0xFF == ord('q'): 
-				break
-			print("Not beak")
-			possible_plates = findPlate.find_possible_plates(img) 
-			if possible_plates is not None: 
-				print("not none!")
-				for i, p in enumerate(possible_plates): 
-					chars_on_plate = findPlate.char_on_plate[i] 
-					print("Wassup")
-					# recognized_plate, _ = model.label_image_list( 
-					# 		chars_on_plate, imageSizeOuput = 128) 
+	# 		if cv2.waitKey(25) & 0xFF == ord('q'): 
+	# 			break
+	# 		print("Not beak")
+	# 		possible_plates = findPlate.find_possible_plates(img) 
+	# 		if possible_plates is not None: 
+	# 			print("not none!")
+	# 			for i, p in enumerate(possible_plates): 
+	# 				chars_on_plate = findPlate.char_on_plate[i] 
+	# 				print("Wassup")
+	# 				# recognized_plate, _ = model.label_image_list( 
+	# 				# 		chars_on_plate, imageSizeOuput = 128) 
 
-					# print(recognized_plate) 
-					cv2.imshow('plate', p) 
+	# 				# print(recognized_plate) 
+	# 				cv2.imshow('plate', p) 
 					
-					if cv2.waitKey(25) & 0xFF == ord('q'): 
-						break
-		else: 
-			break
+	# 				if cv2.waitKey(25) & 0xFF == ord('q'): 
+	# 					break
+	# 	else: 
+	# 		break
 			
-	cap.release() 
-	cv2.destroyAllWindows()
+	# cap.release() 
+ 
+while True:
+		k = cv2.waitKey(0) & 0xFF
+		# print(k)
+		if k == 27 or k == ord('q'):
+				cv2.destroyAllWindows()
+				break
