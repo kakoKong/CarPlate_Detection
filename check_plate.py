@@ -89,7 +89,6 @@ class PlateFinder:
 
 
 	def check_plate(self, input_img, contour): 
-		cv2.imshow('Check Plate', input_img)
 		min_rect = cv2.minAreaRect(contour) 
 		if self.validateRatio(min_rect): 
 				x, y, w, h = cv2.boundingRect(contour) 
@@ -103,7 +102,7 @@ class PlateFinder:
 						cv2.rectangle(input_img, (x, y), (x + w, y + h), (0, 255, 0), 2)
 						cv2.putText(input_img, str(h * w), (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
 						characters_on_plate = self.find_characters_on_plate(after_clean_plate_img) 
-						print('character on plates', characters_on_plate)
+						print('character on plates', len(characters_on_plate))
 						if (characters_on_plate is not None): 
 								x1, y1, w1, h1 = coordinates 
 								coordinates = x1 + x, y1 + y 
@@ -135,7 +134,6 @@ class PlateFinder:
 			# print(plate)	
 			
 			if plate is not None: 
-				cv2.imshow("Plate", plate)
 				plates.append(plate) 
 				self.char_on_plate.append(characters_on_plate) 
 				self.corresponding_area.append(coordinates) 
@@ -148,8 +146,7 @@ class PlateFinder:
 			return None
 
 	def find_characters_on_plate(self, plate): 
-		charactersFound = segment_chars(plate, 10) 
-		print(charactersFound)
+		charactersFound = segment_chars(plate, 400) 
 		if charactersFound: 
 			return charactersFound 
 
