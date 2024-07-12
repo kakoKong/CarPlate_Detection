@@ -15,9 +15,9 @@ if __name__ == "__main__":
 	for i in range(len(possible_plates)):
 		cv2.imshow(f'possible plate ${i+1}', possible_plates[i])
 		chars_on_plate = findPlate.char_on_plate[i]
-		for j in range(len(chars_on_plate)):
-			if (i == 0):
-				cv2.imshow(f'chars on plate ${i+1}, ${j+1}', chars_on_plate[j])
+		# for j in range(len(chars_on_plate)):
+		# 	if (i == 0):
+		# 		cv2.imshow(f'chars on plate ${i+1}, ${j+1}', chars_on_plate[j])
 	# print('possible plate', possible_plates)
 
 	# cap = cv2.VideoCapture('video.mp4') 
